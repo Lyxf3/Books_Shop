@@ -35,4 +35,6 @@ shop commission
 
 select related, prefetch related, only
 
+Как правильно сериалезировать релайшены
+
 До 01.10

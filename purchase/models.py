@@ -16,7 +16,7 @@ class Purchase(models.Model):
                                 related_name="Purchase", verbose_name="User")
     books = models.ForeignKey(to=Book, blank=False, null=True, on_delete=models.SET_NULL,
                               related_name="Purchase", verbose_name="Book")
-    amount = models.DecimalField(blank=False, verbose_name="Amount")
+    amount = models.DecimalField(blank=False, max_digits=7, decimal_places=2, verbose_name="Amount")
     created_at = models.DateTimeField(default=timezone.now, verbose_name="Created_at")
     status = models.PositiveSmallIntegerField(blank=False, null=True, choices=Statuses.choices,
                                               verbose_name="Status")

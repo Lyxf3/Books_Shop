@@ -22,12 +22,25 @@ class Publisher(models.Model):
         return self.title
 
 
+class Contract(models.Model):
+    title = models.CharField(max_length=100)
+    author = models.ForeignKey(to=Author, on_delete=models.CASCADE, related_name="author")
+    publisher = models.ForeignKey(to=Publisher, on_delete=models.CASCADE, related_name="publisher")
+
+
+class Market(models.Model): # TODO
+    title = models.CharField(max_length=100)
+
+
 class Book(models.Model):
     title = models.CharField(max_length=100, blank=False, null=True, verbose_name="Title")
     price = models.PositiveIntegerField(blank=False, verbose_name="Price")
     issued = models.DateTimeField(default=timezone.now, verbose_name="Issued")
-    category = models.ForeignKey(to=Category, blank=False, null=True, on_delete=models.SET_NULL, verbose_name="Category")
-    authors = models.ManyToManyField(to=Author, blank=False, null=True, verbose_name="Authors")
+    categories = models.ManyToManyField(to=Category, blank=False,
+                                        related_name="books", verbose_name="Categories")
+    authors = models.ManyToManyField(to=Author, blank=False, related_name="books",
+                                     verbose_name="Authors")
+    publisher = models.ForeignKey(to=Publisher, on_delete=models.SET_NULL, null=True, verbose_name="Publisher")
     market_id = models.PositiveIntegerField(blank=False, verbose_name="Publisher")
     discount_shop = models.PositiveSmallIntegerField(blank=False, verbose_name="Discount_shop")
     discount_market = models.PositiveSmallIntegerField(blank=False, verbose_name="Discount_market")
@@ -38,7 +51,7 @@ class Book(models.Model):
 
 
 class PBook(Book):
-    publisher = models.ForeignKey(to=Publisher, on_delete=models.SET_NULL, verbose_name="Publisher")
+    pass
 
 
 class EBook(Book):
@@ -49,9 +62,14 @@ class ABook(Book):
     file = models.FileField(upload_to=None, blank=True, null=True, verbose_name="File")
 
 
+class Types(models.IntegerChoices):
+    ASSOCIATIVE = 1
+    DIDACTIC = 2
+    COMBINED = 3
+
+
 class BBook(Book):
-    publisher = models.ForeignKey(to=Publisher,on_delete=models.SET_NULL,  blank=True, null=True, related_name="Book_for_blind",
-                                  verbose_name="Publisher")
+    symbol_type = models.PositiveSmallIntegerField(choices=Types.choices)
 
 
 class PromoCode(models.Model):

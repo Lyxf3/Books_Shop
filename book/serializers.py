@@ -1,32 +1,54 @@
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import (
+    Book, Author, Publisher, PromoCode
+)
 from rest_framework import serializers
 
 
 class BookSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Book
-        fields = ['title', 'price', 'issued', 'category', 'authors', 'publisher', available]
+        fields = "__all__"
 
-        def create(self, validated_data):
-            return Book.objects.create(validated_data)
+    def get_all(self):
+        return Book.objects.all()
 
-        def update(self, instance, validated_data):
-            instance.title = validated_data
+    def get(self, pk):
+        return Book.objects.get(pk=pk)
 
 
 class AuthorSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Author
-        fields = ['first_name', 'second_name']
+        fields = "__all__"
+
+    def get_all(self):
+        return Author.objects.all()
+
+    def get(self, pk):
+        return Author.objects.get(pk=pk)
 
 
 class PublisherSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Publisher
-        fields = ['title']
+        fields = "__all__"
+
+    def get_all(self):
+        return Publisher.objects.all()
+
+    def get(self, pk):
+        return Publisher.objects.get(pk=pk)
 
 
 class PromoCodeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = PromoCode
-        fields = ['percent', 'user', 'times_to_use', 'times_used']
+        fields = "__all__"
+
+    def get_all(self):
+        return PromoCode.objects.all()
+
+    def get(self, pk):
+        return PromoCode.objects.get(pk=pk)
+
+
