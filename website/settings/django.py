@@ -8,6 +8,10 @@ gettext = lambda s: s
 BASE_DIR = pathlib.Path(__file__).parent.parent.parent
 
 INSTALLED_APPS = [
+    'user',
+    'book',
+    'purchase',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -15,6 +19,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -29,10 +35,15 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'website.urls'
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'),],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), ],
         'OPTIONS': {
             'context_processors': [
                 'django.contrib.auth.context_processors.auth',
@@ -84,7 +95,7 @@ LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
 
-DATE_INPUT_FORMATS = ('%d.%m.%Y','%Y-%m-%d')
+DATE_INPUT_FORMATS = ('%d.%m.%Y', '%Y-%m-%d')
 
 STATIC_URL = '/static/'
 ADMIN_MEDIA_PREFIX = '/static/admin/'
@@ -95,6 +106,8 @@ STATICFILE_DIR = os.path.join(BASE_DIR, 'allstaticfiles/static')
 STATICFILES_DIRS = (
     STATICFILE_DIR,
 )
+
+AUTH_USER_MODEL = 'user.User'
 
 MEDIA_FOLDER = 'media'
 MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_FOLDER)
@@ -152,7 +165,7 @@ LOGGING = {
             'handlers': ['console'],
         },
         'django.request': {
-            'handlers': ['mail_admins','errors_log','console'],
+            'handlers': ['mail_admins', 'errors_log', 'console'],
             'level': 'INFO',
             'propagate': False,
         }
@@ -161,4 +174,4 @@ LOGGING = {
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
-XS_SHARING_ALLOWED_METHODS = ['POST','GET','OPTIONS', 'PUT', 'DELETE']
+XS_SHARING_ALLOWED_METHODS = ['POST', 'GET', 'OPTIONS', 'PUT', 'DELETE']
