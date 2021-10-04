@@ -1,54 +1,29 @@
-from django.contrib.auth.models import (
+from book.models import (
     Book, Author, Publisher, PromoCode
 )
 from rest_framework import serializers
 
 
-class BookSerializer(serializers.HyperlinkedModelSerializer):
+class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
-        fields = "__all__"
-
-    def get_all(self):
-        return Book.objects.all()
-
-    def get(self, pk):
-        return Book.objects.get(pk=pk)
+        fields = ('title', 'price', 'issued', 'categories', 'authors', 'publisher',
+                  'market_id', 'discount_shop', 'discount_market', 'available')
 
 
-class AuthorSerializer(serializers.HyperlinkedModelSerializer):
+class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
-        fields = "__all__"
-
-    def get_all(self):
-        return Author.objects.all()
-
-    def get(self, pk):
-        return Author.objects.get(pk=pk)
+        fields = ('first_name', 'second_name')
 
 
-class PublisherSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Publisher
-        fields = "__all__"
-
-    def get_all(self):
-        return Publisher.objects.all()
-
-    def get(self, pk):
-        return Publisher.objects.get(pk=pk)
-
-
-class PromoCodeSerializer(serializers.HyperlinkedModelSerializer):
+class PromoCodeSerializer(serializers.ModelSerializer):
     class Meta:
         model = PromoCode
-        fields = "__all__"
-
-    def get_all(self):
-        return PromoCode.objects.all()
-
-    def get(self, pk):
-        return PromoCode.objects.get(pk=pk)
+        fields = ('id', 'percent', 'user', 'times_to_use', 'times_used')
 
 
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PromoCode
+        fields = 'title'

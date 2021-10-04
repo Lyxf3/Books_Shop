@@ -1,5 +1,6 @@
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+from user.models import User
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -14,3 +15,10 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = ('name', 'email', 'issued', 'favourite_books',
+                  'balance', 'is_active', 'is_superuser')
