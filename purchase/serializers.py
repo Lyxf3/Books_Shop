@@ -1,10 +1,9 @@
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework_simplejwt.views import TokenObtainPairView
-from user.models import Purchase
+from purchase.models import Purchase
+from rest_framework import serializers
 
 
 class PurchaseSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Book
+        model = Purchase
         fields = ('user_id', 'books', 'issued', 'amount',
                   'created_at', 'status')

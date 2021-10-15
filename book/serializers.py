@@ -1,5 +1,5 @@
 from book.models import (
-    Book, Author, Publisher, PromoCode
+    Book, Author, Publisher, PromoCode, Category
 )
 from rest_framework import serializers
 
@@ -14,7 +14,7 @@ class BookSerializer(serializers.ModelSerializer):
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
-        fields = ('first_name', 'second_name')
+        fields = ('first_name', 'second_name', 'percent')
 
 
 class PromoCodeSerializer(serializers.ModelSerializer):
@@ -25,5 +25,5 @@ class PromoCodeSerializer(serializers.ModelSerializer):
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = PromoCode
-        fields = 'title'
+        model = Category
+        fields = ('title',)

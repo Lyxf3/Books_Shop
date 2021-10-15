@@ -5,14 +5,9 @@ from django.conf import global_settings
 
 gettext = lambda s: s
 
-
 BASE_DIR = pathlib.Path(__file__).parent.parent.parent
 
 INSTALLED_APPS = [
-    'user',
-    'book',
-    'purchase',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -21,9 +16,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
+    'user',
+    'book',
+    'purchase',
+
     'rest_framework',
     'rest_framework_simplejwt',
 ]
+
 
 MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -168,6 +168,10 @@ LOGGING = {
         },
     },
     'loggers': {
+        'django.db.backends': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+        },
         '': {
             'level': 'INFO',
             'handlers': ['console'],
@@ -183,3 +187,4 @@ LOGGING = {
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 XS_SHARING_ALLOWED_METHODS = ['POST', 'GET', 'OPTIONS', 'PUT', 'DELETE']
+
